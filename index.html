@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Punjab Overseas · Government Portal</title>
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #fff;
+        }
+
+        /* Animated gradient background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(-45deg, #0B2A4A, #1a3f5c, #0d2e4a, #0B2A4A);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            z-index: -2;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Flying airplane overlay effect */
+        .animated-bg::after {
+            content: "✈️";
+            position: absolute;
+            font-size: 120px;
+            opacity: 0.03;
+            animation: flyAirplane 25s linear infinite;
+            white-space: nowrap;
+            filter: blur(2px);
+        }
+
+        @keyframes flyAirplane {
+            0% { transform: translate(-200px, 20%) rotate(0deg); opacity: 0.03; }
+            10% { opacity: 0.06; }
+            50% { transform: translate(120vw, 80%) rotate(5deg); opacity: 0.03; }
+            100% { transform: translate(120vw, 80%) rotate(5deg); opacity: 0.03; }
+        }
+
+        /* Grid overlay */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255,184,28,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,184,28,0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Main container */
+        .portal-container {
+            max-width: 1200px;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Glass morphism cards */
+        .glass-card {
+            background: rgba(10, 30, 50, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 184, 28, 0.15);
+            border-radius: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 184, 28, 0.1) inset;
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(255, 184, 28, 0.3);
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 184, 28, 0.2) inset;
+        }
+
+        /* Header section */
+        .govt-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 40px 30px 30px;
+            background: rgba(11, 42, 74, 0.4);
+            backdrop-filter: blur(16px);
+            border-radius: 50px;
+            border: 1px solid rgba(255, 184, 28, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .govt-header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,184,28,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .govt-header h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #FFE5A3 50%, #FFB81C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+            position: relative;
+        }
+
+        .govt-header h3 {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: #FFB81C;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .govt-badge {
+            display: inline-flex;
+            gap: 20px;
+            background: rgba(0,0,0,0.3);
+            padding: 12px 30px;
+            border-radius: 60px;
+            border: 1px solid rgba(255,184,28,0.3);
+            margin-top: 15px;
+        }
+
+        .govt-badge span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #FFB81C;
+            font-weight: 500;
+        }
+
+        .govt-badge i {
+            font-size: 1.2rem;
+        }
+
+        /* Disclaimer */
+        .disclaimer-modern {
+            background: rgba(255, 184, 28, 0.05);
+            border-left: 5px solid #FFB81C;
+            padding: 20px 30px;
+            border-radius: 30px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            backdrop-filter: blur(8px);
+        }
+
+        .disclaimer-modern i {
+            font-size: 2rem;
+            color: #FFB81C;
+        }
+
+        /* Main content grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        /* Flight card */
+        .flight-card {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(11,42,74,0.8), rgba(20,60,90,0.8));
+            border-radius: 40px;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,184,28,0.2);
+            margin-bottom: 10px;
+        }
+
+        .flight-stat {
+            text-align: center;
+            padding: 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 30px;
+            transition: transform 0.3s;
+        }
+
+        .flight-stat:hover {
+            transform: translateY(-5px);
+            background: rgba(255,184,28,0.1);
+        }
+
+        .flight-stat .label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #FFB81C;
+            margin-bottom: 10px;
+        }
+
+        .flight-stat .value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: white;
+        }
+
+        .flight-stat .sub {
+            font-size: 0.9rem;
+            color: #a0b8cc;
+            margin-top: 5px;
+        }
+
+        /* Agent payment card - UPDATED with simple text */
+        .agent-payment-card {
+            background: linear-gradient(145deg, #0B2A4A, #1a3f5c);
+            border: 2px solid #FFB81C;
+            border-radius: 40px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(255,184,28,0.2);
+            animation: pulse-glow 2s infinite;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 20px 40px rgba(255,184,28,0.2); }
+            50% { box-shadow: 0 20px 60px rgba(255,184,28,0.4); }
+            100% { box-shadow: 0 20px 40px rgba(255,184,28,0.2); }
+        }
+
+        .agent-payment-card::before {
+            content: "→ → → IMPORTANT ← ← ←";
+            position: absolute;
+            top: 10px;
+            right: -30px;
+            background: #FFB81C;
+            color: #0B2A4A;
+            padding: 8px 40px;
+            transform: rotate(45deg);
+            font-weight: 800;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .agent-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .agent-header i {
+            font-size: 2.5rem;
+            color: #FFB81C;
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 20px;
+        }
+
+        .agent-header h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        /* NEW: Simple agent instruction */
+        .agent-simple-text {
+            background: rgba(255, 184, 28, 0.15);
+            border: 2px dashed #FFB81C;
+            border-radius: 40px;
+            padding: 35px 25px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .agent-simple-text p {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.4;
+            color: white;
+            text-shadow: 0 2px 10px rgba(255,184,28,0.3);
+        }
+
+        .agent-simple-text .urdu-note {
+            font-size: 1.4rem;
+            margin-top: 15px;
+            color: #FFB81C;
+            font-weight: 500;
+        }
+
+        .warning-strip {
+            background: rgba(255, 184, 28, 0.2);
+            border: 1px solid #FFB81C;
+            border-radius: 20px;
+            padding: 15px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .warning-strip i {
+            color: #FFB81C;
+            font-size: 1.5rem;
+        }
+
+        /* Payment summary */
+        .payment-summary {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .payment-item {
+            background: rgba(0,0,0,0.2);
+            border-radius: 25px;
+            padding: 20px;
+        }
+
+        .payment-item .title {
+            color: #FFB81C;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .payment-item .amount {
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+
+        .payment-item .status {
+            font-size: 0.8rem;
+            color: #90ee90;
+            margin-top: 5px;
+        }
+
+        /* Instructions list */
+        .instruction-list {
+            list-style: none;
+        }
+
+        .instruction-list li {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .instruction-list li i {
+            color: #FFB81C;
+            font-size: 1.2rem;
+            width: 25px;
+        }
+
+        /* Deadline timer */
+        .deadline-timer {
+            background: rgba(255, 184, 28, 0.1);
+            border-radius: 30px;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .timer-digits {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #FFB81C;
+            font-family: monospace;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .flight-card {
+                grid-template-columns: 1fr;
+            }
+            
+            .govt-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .payment-summary {
+                grid-template-columns: 1fr;
+            }
+            
+            .agent-simple-text p {
+                font-size: 1.6rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .float-animation {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Footer */
+        .modern-footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 30px;
+            background: rgba(0,0,0,0.2);
+            backdrop-filter: blur(8px);
+            border-radius: 40px;
+            font-size: 0.9rem;
+            color: #a0b8cc;
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg"></div>
+    <div class="grid-overlay"></div>
+
+    <div class="portal-container">
+        <!-- Header -->
+        <div class="govt-header">
+            <h1>Government of Punjab</h1>
+            <h3>Overseas Employment Program</h3>
+            <div class="govt-badge">
+                <span><i class="fas fa-shield-alt"></i> Official Portal</span>
+                <span><i class="fas fa-check-circle"></i> Verified</span>
+                <span><i class="fas fa-map-marker-alt"></i> Lahore</span>
+            </div>
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="disclaimer-modern glass-card">
+            <i class="fas fa-info-circle"></i>
+            <div>
+                <strong style="color: #FFB81C;">OFFICIAL DISCLAIMER:</strong> This is the official information portal for Punjab Overseas Employment Program. All fees are government-approved.
+            </div>
+        </div>
+
+        <!-- Flight Stats Card -->
+        <div class="flight-card">
+            <div class="flight-stat">
+                <div class="label"><i class="fas fa-plane"></i> FLIGHT DATE</div>
+                <div class="value">29 MAR 2026</div>
+                <div class="sub">Confirmed</div>
+            </div>
+            <div class="flight-stat">
+                <div class="label"><i class="fas fa-clock"></i> DEADLINE</div>
+                <div class="value">04 MAR 2026</div>
+                <div class="sub">10:00 AM Sharp</div>
+            </div>
+            <div class="flight-stat">
+                <div class="label"><i class="fas fa-passport"></i> STATUS</div>
+                <div class="value">CLEARED</div>
+                <div class="sub">Documents Verified</div>
+            </div>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="content-grid">
+            <!-- Left Column - Payment Info -->
+            <div class="glass-card" style="padding: 30px;">
+                <h2 style="font-size: 1.8rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-credit-card" style="color: #FFB81C;"></i> 
+                    Payment Summary
+                </h2>
+
+                <div class="payment-summary">
+                    <div class="payment-item">
+                        <div class="title">Already Paid</div>
+                        <div class="amount">Rs. 48,000</div>
+                        <div class="status"><i class="fas fa-check-circle"></i> QR Code Fee</div>
+                    </div>
+                    <div class="payment-item">
+                        <div class="title">Final Payment</div>
+                        <div class="amount">Rs. 44,300</div>
+                        <div class="status">Due by 04 Mar 2026</div>
+                    </div>
+                </div>
+
+                <div class="deadline-timer">
+                    <i class="fas fa-hourglass-half" style="color: #FFB81C; font-size: 2rem; margin-bottom: 10px;"></i>
+                    <div class="timer-digits">03d : 22h : 15m</div>
+                    <div style="margin-top: 5px; color: #FFB81C;">Remaining for deadline</div>
+                </div>
+
+                <div style="margin-top: 25px;">
+                    <h3 style="margin-bottom: 15px;">✅ After Payment:</h3>
+                    <ul class="instruction-list">
+                        <li><i class="fas fa-check"></i> Receive official clearance</li>
+                        <li><i class="fas fa-check"></i> Flight fully confirmed</li>
+                        <li><i class="fas fa-check"></i> No further fees ever</li>
+                        <li><i class="fas fa-check"></i> Legal clearance from all depts</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Right Column - AGENT PAYMENT (SIMPLIFIED) -->
+            <div class="agent-payment-card">
+                <div class="agent-header">
+                    <i class="fas fa-user-tie"></i>
+                    <h2>Payment Instructions</h2>
+                </div>
+
+                <!-- SIMPLE TEXT AS REQUESTED -->
+                <div class="agent-simple-text">
+                    <p>اپنے اپنے ایجنٹس کو<br>پےمنٹ ڈلیور کر دیں</p>
+                    <div class="urdu-note">(Deliver payment to your respective agents)</div>
+                </div>
+
+                <div class="warning-strip">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div>
+                        <strong style="color: #FFB81C;">IMPORTANT:</strong> Pay ONLY to your registered agent. No other payments accepted.
+                    </div>
+                </div>
+
+                <div style="margin-top: 20px; text-align: center;">
+                    <div style="background: #FFB81C; color: #0B2A4A; padding: 15px; border-radius: 60px; font-weight: 800; font-size: 1.2rem;">
+                        <i class="fas fa-rupee-sign"></i> FINAL AMOUNT: Rs. 44,300
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instructions Card -->
+        <div class="glass-card" style="padding: 30px; margin-top: 10px;">
+            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 25px;">
+                <i class="fas fa-clipboard-list" style="color: #FFB81C; font-size: 2rem;"></i>
+                <h2 style="font-size: 1.8rem;">Official Payment Instructions</h2>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 25px;">
+                    <i class="fas fa-hand-holding-usd" style="color: #FFB81C; font-size: 2rem; margin-bottom: 10px;"></i>
+                    <h3 style="margin-bottom: 8px;">Step 1</h3>
+                    <p>Contact your registered agent directly</p>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 25px;">
+                    <i class="fas fa-money-bill-wave" style="color: #FFB81C; font-size: 2rem; margin-bottom: 10px;"></i>
+                    <h3 style="margin-bottom: 8px;">Step 2</h3>
+                    <p>Pay Rs. 44,300 to your agent</p>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 25px;">
+                    <i class="fas fa-receipt" style="color: #FFB81C; font-size: 2rem; margin-bottom: 10px;"></i>
+                    <h3 style="margin-bottom: 8px;">Step 3</h3>
+                    <p>Get official receipt from agent</p>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 25px;">
+                    <i class="fas fa-check-double" style="color: #FFB81C; font-size: 2rem; margin-bottom: 10px;"></i>
+                    <h3 style="margin-bottom: 8px;">Step 4</h3>
+                    <p>Receive confirmation within 24 hours</p>
+                </div>
+            </div>
+
+            <!-- Extra warning -->
+            <div style="margin-top: 30px; background: rgba(255,0,0,0.1); border: 1px solid #ff4444; border-radius: 30px; padding: 20px; display: flex; align-items: center; gap: 15px;">
+                <i class="fas fa-ban" style="color: #ff4444; font-size: 2rem;"></i>
+                <div>
+                    <strong style="color: #ff4444;">DO NOT PAY ANYONE ELSE:</strong> Only your registered agent is authorized to collect this fee. If anyone else asks for payment, report immediately.
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="modern-footer">
+            <i class="fas fa-shield-alt" style="color: #FFB81C; margin-right: 8px;"></i>
+            Government of Punjab Official Portal · All rights reserved · For authorized use only
+        </div>
+    </div>
+
+    <!-- Simple countdown timer script -->
+    <script>
+        // Set deadline: March 4, 2026 10:00 AM
+        const deadline = new Date(2026, 2, 4, 10, 0, 0); // March is month 2 (0-indexed)
+        
+        function updateTimer() {
+            const now = new Date();
+            const diff = deadline - now;
+            
+            if (diff <= 0) {
+                document.querySelector('.timer-digits').innerHTML = 'EXPIRED';
+                return;
+            }
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            
+            document.querySelector('.timer-digits').innerHTML = 
+                `${days.toString().padStart(2, '0')}d : ${hours.toString().padStart(2, '0')}h : ${minutes.toString().padStart(2, '0')}m`;
+        }
+        
+        updateTimer();
+        setInterval(updateTimer, 60000); // Update every minute
+    </script>
+</body>
+</html>
