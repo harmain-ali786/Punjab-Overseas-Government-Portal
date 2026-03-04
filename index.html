@@ -247,7 +247,7 @@
             margin-top: 5px;
         }
 
-        /* Agent payment card - UPDATED with simple text */
+        /* Agent payment card */
         .agent-payment-card {
             background: linear-gradient(145deg, #0B2A4A, #1a3f5c);
             border: 2px solid #FFB81C;
@@ -303,7 +303,7 @@
             font-weight: 700;
         }
 
-        /* NEW: Simple agent instruction */
+        /* Simple agent instruction */
         .agent-simple-text {
             background: rgba(255, 184, 28, 0.15);
             border: 2px dashed #FFB81C;
@@ -434,17 +434,6 @@
             }
         }
 
-        /* Animations */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-
-        .float-animation {
-            animation: float 4s ease-in-out infinite;
-        }
-
         /* Footer */
         .modern-footer {
             text-align: center;
@@ -463,14 +452,14 @@
     <div class="grid-overlay"></div>
 
     <div class="portal-container">
-        <!-- Header -->
+        <!-- Header with UPDATED location: Islamabad -->
         <div class="govt-header">
             <h1>Government of Punjab</h1>
             <h3>Overseas Employment Program</h3>
             <div class="govt-badge">
                 <span><i class="fas fa-shield-alt"></i> Official Portal</span>
                 <span><i class="fas fa-check-circle"></i> Verified</span>
-                <span><i class="fas fa-map-marker-alt"></i> Lahore</span>
+                <span><i class="fas fa-map-marker-alt"></i> Islamabad</span>  <!-- CHANGED: Lahore → Islamabad -->
             </div>
         </div>
 
@@ -482,7 +471,7 @@
             </div>
         </div>
 
-        <!-- Flight Stats Card -->
+        <!-- Flight Stats Card with UPDATED date: 6 March -->
         <div class="flight-card">
             <div class="flight-stat">
                 <div class="label"><i class="fas fa-plane"></i> FLIGHT DATE</div>
@@ -491,7 +480,7 @@
             </div>
             <div class="flight-stat">
                 <div class="label"><i class="fas fa-clock"></i> DEADLINE</div>
-                <div class="value">04 MAR 2026</div>
+                <div class="value">06 MAR 2026</div>  <!-- CHANGED: 04 → 06 -->
                 <div class="sub">10:00 AM Sharp</div>
             </div>
             <div class="flight-stat">
@@ -519,7 +508,7 @@
                     <div class="payment-item">
                         <div class="title">Final Payment</div>
                         <div class="amount">Rs. 44,300</div>
-                        <div class="status">Due by 04 Mar 2026</div>
+                        <div class="status">Due by 06 Mar 2026</div>  <!-- CHANGED: 04 → 06 -->
                     </div>
                 </div>
 
@@ -540,14 +529,14 @@
                 </div>
             </div>
 
-            <!-- Right Column - AGENT PAYMENT (SIMPLIFIED) -->
+            <!-- Right Column - AGENT PAYMENT -->
             <div class="agent-payment-card">
                 <div class="agent-header">
                     <i class="fas fa-user-tie"></i>
                     <h2>Payment Instructions</h2>
                 </div>
 
-                <!-- SIMPLE TEXT AS REQUESTED -->
+                <!-- Simple text as requested -->
                 <div class="agent-simple-text">
                     <p>اپنے اپنے ایجنٹس کو<br>پےمنٹ ڈلیور کر دیں</p>
                     <div class="urdu-note">(Deliver payment to your respective agents)</div>
@@ -614,10 +603,10 @@
         </div>
     </div>
 
-    <!-- Simple countdown timer script -->
+    <!-- Simple countdown timer script with UPDATED deadline -->
     <script>
-        // Set deadline: March 4, 2026 10:00 AM
-        const deadline = new Date(2026, 2, 4, 10, 0, 0); // March is month 2 (0-indexed)
+        // Set deadline: March 6, 2026 10:00 AM (CHANGED from 4 to 6)
+        const deadline = new Date(2026, 2, 6, 10, 0, 0); // March is month 2 (0-indexed), now 6th
         
         function updateTimer() {
             const now = new Date();
